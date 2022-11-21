@@ -58,6 +58,7 @@ Route::middleware(['auth_users'])->group(function () {
         })->name('user.update');
         
         Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');
+        Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
         Route::get('/api-config', [ApiConfigController::class, 'index'])->name('api_config.index');
         Route::get('/api-config/create', [ApiConfigController::class, 'create'])->name('api_config.create');
         Route::get('/api-config/{id}', [ApiConfigController::class, 'edit'])->name('api_config.edit');

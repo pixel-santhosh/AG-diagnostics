@@ -1,7 +1,13 @@
 @extends('layouts.admin')
 
 @section('admin_title') Home @endsection
+<style>
+    form i {
+    margin-left: -30px;
+    cursor: pointer;
+}
 
+</style>
 @section('admin_content') 
     <div class="p-1 mb-3">
         <div class="mb-1 lead"><strong>Welcome  <b class="text-gradient">{{ Sentinel::getUser()->name }}</b></strong></div>
@@ -15,7 +21,7 @@
             
         </div>
         <div class="card-body"> 
-            {!! Form::open(['route' => 'brochures.store','class'=>'needs-validation','novalidate',  'id' => 'brochures_form', 'method'=> 'post', 'files' => true]) !!}
+            {!! Form::open(['route' => 'profile.store','class'=>'needs-validation','novalidate',  'id' => 'brochures_form', 'method'=> 'post', 'files' => true]) !!}
                 @csrf
                 <br>
                 <div class="row mb-3">
@@ -25,6 +31,7 @@
 
                     </div>
                 </div>
+                <input type="hidden" name="id" value="{{ $data->id }}" >
                 <div class="row mb-3">
                     <label class="col-2 text-end col-form-label">Email *</label>
                     <div class="col-10">
@@ -33,12 +40,30 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-2 text-end col-form-label">Password *</label>
+                    <label class="col-2 text-end col-form-label">Current Password</label>
                     <div class="col-10">
-                        <input type="password" class="form-control" value="{{ $data->password }}" autocomplete="off" required>
+                        <input type="password" name="old_password" class="form-control"  autocomplete="off" id="old_password">
                     </div>
                 </div>
-                
+                <div class="row mb-3">
+                    <label class="col-2 text-end col-form-label">New Password</label>
+                    <div class="col-10">
+                        <input type="password" name="password" class="form-control"  autocomplete="off" id="password">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-2 text-end col-form-label">Confirm Password</label>
+                    <div class="col-10">
+                        <input type="password" name="confirm_password" class="form-control"  autocomplete="off" id="confirm_password">
+                    </div>
+                </div>
+              
+                <div class="row mb-3">
+                    <div class="col-10 offset-2">
+                        <a href="{{ route('admin.dashboard') }}" class="btn btn-light">Back</a>
+                        <button type="submit" class="btn btn-primary fw-bold">Save</button>
+                    </div>
+                </div> 
                 
                
             {!! Form::close() !!}
@@ -48,7 +73,20 @@
 @endsection
  
 @section('scripts')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
   
+    {{-- <script>
+        const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#current_password');
+
+  togglePassword.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // toggle the eye slash icon
+    this.classList.toggle('fa-eye-slash');
+});
+    </script> --}}
 @endsection
